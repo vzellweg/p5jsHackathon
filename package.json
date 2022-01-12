@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/vzellweg/p5jsHackathon/issues"
   },
-  "homepage": "https://github.com/vzellweg/p5jsHackathon#readme"
+  "homepage": "https://github.com/vzellweg/p5jsHackathon#readme",
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "live-server": "^1.2.1",
+    "p5": "^1.4.0"
+  }
 }
