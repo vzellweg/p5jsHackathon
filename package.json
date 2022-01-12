@@ -1,0 +1,19 @@
+{
+  "name": "p5jshackathon",
+  "version": "1.0.0",
+  "description": "Hackathon Project for getting familiar with p5js.",
+  "main": "geometryGradient.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vzellweg/p5jsHackathon.git"
+  },
+  "author": "Victor Zellweger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vzellweg/p5jsHackathon/issues"
+  },
+  "homepage": "https://github.com/vzellweg/p5jsHackathon#readme"
+}
