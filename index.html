@@ -5,14 +5,20 @@
     <title>Sketch P5.js</title>
     <script src="node_modules/p5/lib/p5.js" type="text/javascript"></script>
     <script src="node_modules/p5/lib/addons/p5.sound.js" type="text/javascript"></script>
-    <script src="sketch.js" type="text/javascript"></script>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <!-- <script src="./dist/bundle.js"></script> -->
+    <!-- Sketches -->
+    <script src="sketches/geometryGradient.js" type="text/javascript"></script>
+    <script src="sketches/geometryGradientDup.js" type="text/javascript"></script>
     <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
+    <script src="views/geometryGradient.html"></script>
   </head>
   <body>
       <h1>P5.js Hackathon Scripts:</h1>
       <div class="container">
           <div class="column">
-            <button class="btn">GeometryGradient</button>
+            <a id="geometryGradient" class="btn btn-primary" href="views/geometryGradient.html">GeometryGradient
+            </a>
           </div>
       </div>
       

@@ -1,24 +1,34 @@
 {
-  "name": "p5jshackathon",
-  "version": "1.0.0",
-  "description": "Hackathon Project for getting familiar with p5js.",
-  "main": "geometryGradient.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vzellweg/p5jsHackathon.git"
-  },
-  "author": "Victor Zellweger",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/vzellweg/p5jsHackathon/issues"
-  },
-  "homepage": "https://github.com/vzellweg/p5jsHackathon#readme",
-  "dependencies": {
-    "bootstrap": "^5.1.3",
-    "live-server": "^1.2.1",
-    "p5": "^1.4.0"
-  }
+    "name": "p5jshackathon",
+    "version": "1.0.0",
+    "description": "Hackathon Project for getting familiar with p5js.",
+    "main": "index.html",
+    "scripts": {
+        "serve": "live-server"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vzellweg/p5jsHackathon.git"
+    },
+    "author": "Victor Zellweger",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/vzellweg/p5jsHackathon/issues"
+    },
+    "homepage": "https://github.com/vzellweg/p5jsHackathon#readme",
+    "dependencies": {
+        "bootstrap": "^5.1.3",
+        "p5": "^1.4.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.2.2",
+        "@babel/preset-env": "^7.3.1",
+        "babel-loader": "^8.0.5",
+        "path": "^0.12.7",
+        "eslint": "^8.6.0",
+        "live-server": "^1.2.1",
+        "webpack": "^4.29.0",
+        "webpack-cli": "^3.2.1",
+        "webpack-dev-server": "^3.1.14"
+    }
 }
