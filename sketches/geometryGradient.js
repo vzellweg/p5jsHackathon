@@ -47,7 +47,7 @@ function draw() {
       
       // initialize with default polygon 
       if (typeof curPolyIndex == 'undefined') {
-        console.log(`initializing map entry: ${polygonIndexMap[`${i}-${j}`]}`);
+        //console.log(`initializing map entry: ${polygonIndexMap[`${i}-${j}`]}`);
         curPolyIndex = polygonIndexMap[`${i}-${j}`] = polyIndex;
       }
       
@@ -80,10 +80,10 @@ function mouseClicked() {
 function incrementPolyIndex(index) {
   index++;
   if (index == vertexRange.length) {
-    console.log(`returning 0, index: ${index} vertexRange: ${vertexRange}`);
+    // console.log(`returning 0, index: ${index} vertexRange: ${vertexRange}`);
     return 0;
   } else {
-    console.log(`returning non-zero increment`)
+    // console.log(`returning non-zero increment`)
     return index;
   }
 }
