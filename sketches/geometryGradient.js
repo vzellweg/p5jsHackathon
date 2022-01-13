@@ -8,13 +8,16 @@ let gutter = radius;
 let rate = 100;
 let vertexRange = [...Array(9).keys()].slice(3).map(key => Number(key));
 let secondsToRadians;
+let modFunctions;
 // Variables
-// Colors
-let  c1, c2;
+let  c1, c2; // Colors
 let t = 0; // time variable
 let polyIndex = 5; // polygon currently in use
 let gradientCenter;
 let polygonIndexMap = {};
+let modFunction;
+// UI
+let modRadio;
 
 function setup() {
   //createCanvas(800, 800, WEBGL);
@@ -22,12 +25,25 @@ function setup() {
   c1 = color("#F3D1F4");
   c2 = color("#F5FCC1");
   secondsToRadians = PI/(180*60*60);
+   modFunctions = {
+    'sine': sin,
+    'Perlin Noise': noise
+  };
+  modFunction = sin;
+  modRadio = createRadio();
+  Object.keys(modFunctions).forEach((key) => modRadio.option(key, key));
+  
+  modRadio.selected('sine');
 }
 
 function draw() {
-  // background(220, .22); 
+  // Set Modulation Function 
+  let val = modRadio.value();
+  if (val) {
+    modFunction = modFunctions[val]
+  }
   
-  gradientCenter = (width / 2 * (sin(t) + 1 )/2) + (width / 4);
+  gradientCenter = (width / 2 * (modFunction(t) + 1 )/2) + (width / 4);
   setGradient(0, 0, gradientCenter, height, c1, c2, X_AXIS);
   setGradient(gradientCenter, 0, width - gradientCenter, height, c2, c1, X_AXIS);
   
@@ -43,7 +59,7 @@ function draw() {
       let x = i*(shapeW+gutter) + gutter;
       let y = j*(shapeH + gutter) + gutter;
       let curPolyIndex = polygonIndexMap[`${i}-${j}`];
-      let radiusAtTime = radius * sin((i + 1) * (j + 1) +  t/ 4);
+      let radiusAtTime = radius * modFunction((i + 1) * (j + 1) +  t/ 4);
       
       // initialize with default polygon 
       if (typeof curPolyIndex == 'undefined') {
@@ -65,6 +81,7 @@ function draw() {
    t = t + 0.01; // update time
 }
 
+// TODO: Make work with multi-touches too
 function mouseClicked() {
   const width = (shapeW+gutter);
   const height = (shapeH + gutter);
