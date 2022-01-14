@@ -20,6 +20,11 @@ let modFunction;
 let modRadio;
 
 function setup() {
+  mic = new p5.AudioIn();
+  mic.start();
+  fft = new p5.FFT(.8)
+  fft.setInput(mic);
+  
   //createCanvas(800, 800, WEBGL);
   createCanvas(800, 800);
   c1 = color("#F3D1F4");
@@ -30,15 +35,18 @@ function setup() {
     'Perlin Noise': noise
   };
   modFunction = sin;
-  modRadio = createRadio();
+  modRadio = createRadio("Modulation Function");
   Object.keys(modFunctions).forEach((key) => modRadio.option(key, key));
   
   modRadio.selected('sine');
 }
 
 function draw() {
+  const spectrum = fft.analyze();
+  // TODO: Limit to vocal frequencies?
+  const amplitude = map(fft.getEnergy('bass'), 0, 255, 0.5, 1.5);
   // Set Modulation Function 
-  let val = modRadio.value();
+  const val = modRadio.value();
   if (val) {
     modFunction = modFunctions[val]
   }
@@ -73,7 +81,7 @@ function draw() {
       stroke("rgba(0, 0, 0, 0.3)");
       strokeWeight(2);
       rotate(frameCount / rate);
-      polygon(0, 0, radiusAtTime, vertexRange[curPolyIndex]);
+      polygon(0, 0, radiusAtTime*amplitude, vertexRange[curPolyIndex]);
       pop();
 
     }
