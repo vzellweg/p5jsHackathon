@@ -1,11 +1,12 @@
 // Constants
 const Y_AXIS = 1;
 const X_AXIS = 2;
-let shapeW = 80;
+let shapeW = 100;
 let shapeH = shapeW;
 let radius = shapeW / 2;
 let gutter = radius;
 let rate = 100;
+// Number of vertices for each supported polygon
 let vertexRange = [...Array(9).keys()].slice(3).map(key => Number(key));
 let secondsToRadians;
 let modFunctions;
@@ -20,6 +21,7 @@ let modFunction;
 let modRadio;
 
 function setup() {
+  // Setup microphone input
   mic = new p5.AudioIn();
   mic.start();
   fft = new p5.FFT(.8)
@@ -30,9 +32,11 @@ function setup() {
   c1 = color("#F3D1F4");
   c2 = color("#F5FCC1");
   secondsToRadians = PI/(180*60*60);
-   modFunctions = {
+  
+  modFunctions = {
     'sine': sin,
-    'Perlin Noise': noise
+    'Perlin Noise': (t) => map(noise(t), 0, 1, -1, 1),
+    'Sin * Noise': (t) => sin(t) * map(noise(t), 0, 1, .5, 1),
   };
   modFunction = sin;
   modRadio = createRadio("Modulation Function");
@@ -44,22 +48,25 @@ function setup() {
 function draw() {
   const spectrum = fft.analyze();
   // TODO: Limit to vocal frequencies?
-  const amplitude = map(fft.getEnergy('bass'), 0, 255, 0.5, 1.5);
+  let amplitude = map(fft.getEnergy('bass'), 0, 255, .8, 1.5);
+  // Cancel out audio-reactivity
+  //amplitude = 1;
   // Set Modulation Function 
   const val = modRadio.value();
   if (val) {
     modFunction = modFunctions[val]
   }
   
+  // Initial Gradient
   gradientCenter = (width / 2 * (modFunction(t) + 1 )/2) + (width / 4);
   setGradient(0, 0, gradientCenter, height, c1, c2, X_AXIS);
   setGradient(gradientCenter, 0, width - gradientCenter, height, c2, c1, X_AXIS);
   
   // Multi-directional gradient
-  // setGradient(0, 0, width, gradientCenter, c1, c2, Y_AXIS);
-  // setGradient(0, gradientCenter, width, height - gradientCenter, c2, c1, Y_AXIS);
+  setGradient(0, 0, width, gradientCenter, c1, c2, Y_AXIS);
+  setGradient(0, gradientCenter, width, height - gradientCenter, c2, c1, Y_AXIS);
   
-  // 
+  // Draw grid of polygons
   for (let i = 0; i*(shapeW+gutter)+ gutter + radius < width; i++)
   {
     for (let j = 0; j*(shapeH + gutter) + gutter + radius < (height - gutter); j++)
@@ -102,6 +109,7 @@ function mouseClicked() {
   polygonIndexMap[`${i}-${j}`] = incrementPolyIndex(curPolyIndex);
 }
 
+// Increment given polygon index
 function incrementPolyIndex(index) {
   index++;
   if (index == vertexRange.length) {
@@ -113,6 +121,7 @@ function incrementPolyIndex(index) {
   }
 }
 
+// Create Polygon shape
 // Taken from: https://p5js.org/examples/form-regular-polygon.html
 function polygon(x, y, radius, npoints) {
   let angle = TWO_PI / npoints;
@@ -125,6 +134,7 @@ function polygon(x, y, radius, npoints) {
   endShape(CLOSE);
 }
 
+// Create gradient
 // Taken from https://p5js.org/examples/color-linear-gradient.html
 function setGradient(x, y, w, h, c1, c2, axis, alpha=.5) {
   noFill();
