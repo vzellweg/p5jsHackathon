@@ -16,6 +16,7 @@ This was an open-ended project with the goal of creating some interactive visual
 
 # What would I do next?
 
+- Complex WaveForms for modulation, using those same waveforms to modulate sound
 - Know how I want to deploy my work ahead of time so I can spend most of my hackathon time focusing on the new technology 
 - 3D stuff
 - Make a visualization of some abstract concept (Math or Comp Sci)
